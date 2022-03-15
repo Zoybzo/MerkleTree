@@ -1,8 +1,6 @@
-import ConstVal
 import queue
 from hashlib import sha256
 from graphviz import Digraph
-
 
 # Computer A sends a hash of the file to computer B.
 # Computer B checks that hash against the root of the Merkle tree.
@@ -11,6 +9,10 @@ from graphviz import Digraph
 # Computer A creates the necessary hashes and sends them back to computer B.
 # Repeat steps 4 and 5 until you've found the data blocks(s) that are inconsistent.
 # It's possible to find more than one data block that is wrong because there might be more than one error in the data.
+
+INNER_NODE = 0
+LEAF_NODE = 1
+
 
 def my_hash(s1, s2=''):
     return sha256((s1 + s2).encode()).hexdigest()
@@ -31,7 +33,7 @@ def get_val(my_list):
 
 
 class Node:
-    def __init__(self, _key, _node_val='', _node_type=ConstVal.INNER_NODE):
+    def __init__(self, _key, _node_val='', _node_type=INNER_NODE):
         self.key = _key
         self.val = _node_val
         self.type = _node_type
@@ -116,6 +118,14 @@ class MerkleTree:
             else:
                 return False
         return True
+
+    def search_sibling(self, target):
+        """
+
+        :param target:
+        :return:
+        """
+        pass
 
     def search(self, target):
         """
